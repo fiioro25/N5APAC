@@ -10,7 +10,7 @@ namespace PAC.WebAPI.Filters
         {
             var authorizationHeader = context.HttpContext.Request.Headers["Authorization"].ToString();
 
-            // Verificar si el encabezado de autorización está presente
+            // Verificar si el encabezado de autorización está presente. Ejercicio 5.
             if (string.IsNullOrWhiteSpace(authorizationHeader))
             {
                 context.Result = new UnauthorizedObjectResult("No puedo autorizarme");

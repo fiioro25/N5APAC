@@ -90,7 +90,7 @@ namespace PAC.WebAPI
 
         //Ejercicio extra
         [HttpGet]
-        public IEnumerable<Student> GetForAge(int? age)
+        public IEnumerable<Student> Get(int? age)
         {
             // Obtener todos los estudiantes
             var students = _studentLogic.GetStudents();
