@@ -22,15 +22,50 @@ namespace PAC.WebAPI
         }
 
         [HttpGet]
-        public IEnumerable<Student> Get()
+        public IActionResult Get()
         {
-            return _studentLogic.GetStudents();
+            try
+            {
+                var students = _studentLogic.GetStudents();
+                if (students.Any())
+                {
+                    return Ok(students);
+                }
+                else
+                {
+                    return NotFound("No se encontraron estudiantes.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al obtener la lista de estudiantes: {ex.Message}");
+            }
         }
 
         [HttpGet("{id}")]
-        public Student Get(int id)
+        public IActionResult Get(int id)
         {
-            return _studentLogic.GetStudentById(id);
+            if (id <= 0)
+            {
+                return BadRequest("El identificador del estudiante debe ser mayor que cero.");
+            }
+
+            try
+            {
+                var student = _studentLogic.GetStudentById(id);
+                if (student != null)
+                {
+                    return Ok(student);
+                }
+                else
+                {
+                    return NotFound($"No se encontró un estudiante con el ID {id}.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error al obtener el estudiante: {ex.Message}");
+            }
         }
 
         [AuthorizationFilter]
