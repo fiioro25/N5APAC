@@ -8,9 +8,13 @@ namespace PAC.WebAPI.Filters
     {
         public virtual void OnAuthorization(AuthorizationFilterContext context)
         {
-            var authorizationHeader = context.HttpContext.Request.Headers[""].ToString();
-        }
+            var authorizationHeader = context.HttpContext.Request.Headers["Authorization"].ToString();
 
+            // Verificar si el encabezado de autorización está presente
+            if (string.IsNullOrWhiteSpace(authorizationHeader))
+            {
+                context.Result = new UnauthorizedObjectResult("No puedo autorizarme");
+            }
+        }
     }
 }
-

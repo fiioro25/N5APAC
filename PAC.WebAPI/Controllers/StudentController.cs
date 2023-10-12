@@ -88,5 +88,20 @@ namespace PAC.WebAPI
             }
         }
 
+        //Ejercicio extra
+        [HttpGet]
+        public IEnumerable<Student> GetForAge(int? age)
+        {
+            // Obtener todos los estudiantes
+            var students = _studentLogic.GetStudents();
+
+            // Si se proporciona un valor de edad, aplicar el filtro
+            if (age.HasValue)
+            {
+                students = students.Where(s => s.Age == age.Value);
+            }
+
+            return students;
+        }
     }
 }
